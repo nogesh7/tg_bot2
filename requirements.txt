@@ -1,0 +1,10 @@
+pytelegrambotapi
+apscheduler==3.11.0
+spire==0.4.2
+docx
+spire.doc
+exceptions
+pandas
+re
+json
+datetime
