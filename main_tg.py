@@ -220,10 +220,6 @@ def get_document_messages(message):
         with open("json_user.json", "w") as fh:
             json.dump(user, fh)
 
-        with open("user_changed.json", "w") as fh:
-            json.dump(user_change, fh)
-
-
         for Id, value in user_change.items():
             print(user_change[str(Id)][0][2])
             if user_change[str(Id)][0][1] != "00:01":
@@ -234,28 +230,5 @@ def get_document_messages(message):
         user[str(message.from_user.id)][1] = 4
         with open("json_user.json", "w") as fh:
             json.dump(user, fh)
- 
-def time_min():
-    times = []
-    for key, value in user_change.items():
-        times.append(int(re.split(r'[;,.:\s]+', value[0][1])[0])) ##  Достаем значения часов
-    time_rass = min(times)
-try:
-    if user_change:
-        for Id, value in user_change.items():
-            mounth, Date, time = re.split(r'[; ,.:\s]+', user_change[str(Id)][0][0])[1], re.split(r'[; ,.:\s]+', user_change[str(Id)][0][0])[0], re.split(r'[;,.:\s]+', user_change[str(Id)][0][0])[1]
-            time_min()
-            date = value[0][0]
-            if time_rass >= 9:
-                time_rass -= 24
-            if datetime.now().timetuple().tm_mon >= int(mounth) and datetime.now().timetuple().tm_mday >= int(Date) and int(time_rass) + 15 <= datetime.now().timetuple().tm_hour and user_change[str(Id)][0][1] != "00:01": ## проверка на час и день
-                bot.send_message(int(Id), user_change[str(Id)][0][2]) ## рассылка сообщений
-                value.append(["01.01", "00:01", "остальная информация", "Имя фамилия"])
-                user_change[str(Id)].pop(0)
-except:
-    bot.send_message(int(Id), "Дата в неверном формате")
-
-    with open("json_user.json", "w") as fh:
-            json.dump(user, fh)    
 
 bot.polling(none_stop=True, interval=0)
