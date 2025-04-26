@@ -13,7 +13,7 @@ bot = telebot.TeleBot(config.token_pomoshnik)
 
 not_time_sleep = 0
 
-with open("json_user.json", "r") as fh:
+with open("data/json_user.json", "r") as fh:
     user = json.load(fh)
 
 with open("user_changed.json", "r") as fh:
@@ -31,13 +31,13 @@ TIME = "00:00"
 @bot.message_handler(commands=['start'])
 def start(message):
     not_time_sleep = 1
-    with open("json_user.json", "r") as fh:
+    with open("data/json_user.json", "r") as fh:
         user = json.load(fh)
     if message.from_user.id not in user.keys(): ## Если пользователя нет в базе данных
         bot.send_message(message.from_user.id, "Введите Фамилию")
         user_change[str(message.from_user.id)] = [["01.01", "00:01", "остальная информация", "Имя фамилия"], ["01.01", "00:01", "остальная информация", "Имя фамилия"], ["01.01", "00:01", "остальная информация", "Имя фамилия"], ["01.01", "00:01", "остальная информация", "Имя фамилия"],]
         user[str(message.from_user.id)] = ["user", 0, "Имя фамилия"]
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
 
 
@@ -47,7 +47,7 @@ def start(message):
     if user[str(message.from_user.id)][0] == "adm":
         bot.send_message(message.from_user.id, "Напишите дату, на которую сейчас пришлете таблицу в формате ДД.ММ")
         user[str(message.from_user.id)][1] = "Присылает дату"
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
     else:
         bot.send_message(message.from_user.id, "Вы не админ")
@@ -61,14 +61,14 @@ def start(message):
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    with open("json_user.json", "r") as fh:
+    with open("data/json_user.json", "r") as fh:
         user = json.load(fh)
     if user[str(message.from_user.id)][1] == 0:
         bot.send_message(message.from_user.id, "Подтвердите что ваша фамилия:" + message.text + " (Введите свою фамилию еще раз)")
         user[str(message.from_user.id)][1] = 1
         user[str(message.from_user.id)][2] = message.text
         user_change[str(message.from_user.id)][0][3] = message.text
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
 
         with open("user_changed.json", "w") as fh:
@@ -85,7 +85,7 @@ def get_text_messages(message):
             user[str(message.from_user.id)][1] = 0
 
 
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
 
     elif user[str(message.from_user.id)][1] == 2:## проверка статуса админа
@@ -101,7 +101,7 @@ def get_text_messages(message):
             bot.send_message(message.from_user.id, "Пришлите список фамилий (Каждая фамилия с новой строки)") ## у пользователя статус 3
         else:
             bot.send_message(message.from_user.id, "Ключ неправильный(")
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
 
         
@@ -141,7 +141,7 @@ def get_text_messages(message):
             bot.send_message(message.from_user.id, "Есть незарегистрировавшиеся работники, но вы всё равно можете прислать расписние, оно пришлется зарегистрированным пользовтелей")
             bot.send_message(message.from_user.id, "Фамилии незарегистрированых пользователей:" + q)
         
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
     
     elif user[str(message.from_user.id)][1] == "Присылает дату":
@@ -149,14 +149,14 @@ def get_text_messages(message):
         global date
         date = message.text
         user[str(message.from_user.id)][1] = "Присылает таблицу"
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
 
 
   
 @bot.message_handler(content_types=['document'])
 def get_document_messages(message):
-    with open("json_user.json", "r") as fh:
+    with open("data/json_user.json", "r") as fh:
         user = json.load(fh)
         
     if user[str(message.from_user.id)][1] == "Присылает таблицу" and user[str(message.from_user.id)][0] == "adm":
@@ -217,7 +217,7 @@ def get_document_messages(message):
                                             value[i][1] = TIME
                                             value[i][2] = info
                         
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
 
         for Id, value in user_change.items():
@@ -228,7 +228,7 @@ def get_document_messages(message):
        
 
         user[str(message.from_user.id)][1] = 4
-        with open("json_user.json", "w") as fh:
+        with open("data/json_user.json", "w") as fh:
             json.dump(user, fh)
 
 bot.polling(none_stop=True, interval=0)
