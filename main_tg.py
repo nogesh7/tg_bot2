@@ -12,7 +12,7 @@ import time
 
 
 
-bot = telebot.TeleBot(config.token_skuperd)
+bot = telebot.TeleBot(config.token_pomoshnik)
 
 not_time_sleep = 0
 
