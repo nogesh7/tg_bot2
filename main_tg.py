@@ -35,7 +35,7 @@ TIME = "00:00"
 @bot.message_handler(commands=['start'])
 def start(message):
     not_time_sleep = 1
-    with open("user.json", "r") as fh:
+    with open("data/user.json", "r") as fh:
         user = json.load(fh)
     if message.from_user.id not in user.keys(): ## Если пользователя нет в базе данных
         bot.send_message(message.from_user.id, "Введите Фамилию")
