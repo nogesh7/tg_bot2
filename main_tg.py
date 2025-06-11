@@ -35,7 +35,7 @@ TIME = "00:00"
 @bot.message_handler(commands=['start'])
 def start(message):
     not_time_sleep = 1
-    with open("data/user.json", "r") as fh:
+    with open("data/json_user.json", "r") as fh:
         user = json.load(fh)
     if message.from_user.id not in user.keys(): ## Если пользователя нет в базе данных
         bot.send_message(message.from_user.id, "Введите Фамилию")
@@ -94,10 +94,13 @@ def get_text_messages(message):
             json.dump(user, fh)
 
     elif user[str(message.from_user.id)][1] == 2:## проверка статуса админа
-        if message.text == config.admin:
+        if str(message.text) == str(config.admin):
             user[str(message.from_user.id)][0] = "adm" ## выдача статуса админа или обычного юзера
         else:
             user[str(message.from_user.id)][0] = "user"
+        
+        with open("data/json_user.json", "w") as fh:
+            json.dump(user, fh)
 
         user[str(message.from_user.id)][1] = 3
         
