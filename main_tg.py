@@ -19,7 +19,7 @@ not_time_sleep = 0
 with open("json_user.json", "r") as fh:
     user = json.load(fh)
 
-with open("data/user_changed.json", "r") as fh:
+with open("user_changed.json", "r") as fh:
     user_change = json.load(fh)
 
 
@@ -76,7 +76,7 @@ def get_text_messages(message):
         with open("json_user.json", "w") as fh:
             json.dump(user, fh)
 
-        with open("data/user_changed.json", "w") as fh:
+        with open("user_changed.json", "w") as fh:
             json.dump(user_change, fh)    
        
             
