@@ -10,8 +10,6 @@ import re
 from datetime import datetime, date, time
 import time
 
-global user
-
 
 bot = telebot.TeleBot(config.token_pomoshnik)
 
