@@ -10,6 +10,7 @@ import re
 from datetime import datetime, date, time
 import time
 
+global user
 
 
 bot = telebot.TeleBot(config.token_pomoshnik)
@@ -28,7 +29,7 @@ with open("user_changed.json", "r") as fh:
 global date
 global TIME
 global time_rass
-global user
+
 
 time_rass = 0
 date = "01.01"
