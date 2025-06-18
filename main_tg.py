@@ -2,7 +2,7 @@ import telebot ##Проект для мамы
 import config
 from telebot import types
 import json
-import pandas as pd
+#import pandas as pd
 #from docx import Document  # Correct usage of python-docx
 from spire.doc import *
 from spire.doc.common import *
