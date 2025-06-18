@@ -16,6 +16,8 @@ bot = telebot.TeleBot(config.token_pomoshnik)
 
 not_time_sleep = 0
 
+
+
 with open("json_user.json", "r") as fh:
     user = json.load(fh)
 
@@ -26,6 +28,7 @@ with open("user_changed.json", "r") as fh:
 global date
 global TIME
 global time_rass
+global user
 
 time_rass = 0
 date = "01.01"
