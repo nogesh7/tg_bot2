@@ -43,6 +43,7 @@ def start(message):
         user[str(message.from_user.id)] = ["user", 0, "фамилия"]
         with open("json_user.json", "w") as fh:
             json.dump(user, fh)
+    print(user)
 
 
 
