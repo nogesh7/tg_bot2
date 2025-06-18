@@ -12,7 +12,7 @@ import time
 
 
 
-bot = telebot.TeleBot('7598948484:AAEyAtgfZxGpIl-Ti7PzPeev7WTNxy0moRY')
+bot = telebot.TeleBot(config.token_pomoshnik)
 
 not_time_sleep = 0
 
